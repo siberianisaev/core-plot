@@ -513,6 +513,12 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
     [super layoutSublayers];
 }
 
+-(void)clearCache
+{
+    [self.cachedData removeAllObjects];
+    self.cachedDataCount = 0;
+}
+
 /// @endcond
 
 #pragma mark -

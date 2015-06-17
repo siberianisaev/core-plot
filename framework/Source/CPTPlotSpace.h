@@ -94,6 +94,12 @@ extern NSString *const CPTPlotSpaceDisplacementKey;
  **/
 -(void)plotSpace:(CPTPlotSpace *)space didChangePlotRangeForCoordinate:(CPTCoordinate)coordinate;
 
+/** @brief @optional Notifies that plot space is going to change a plot range.
+ *  @param space The plot space.
+ *  @param newRange The proposed new plot range.
+ **/
+-(void)plotSpace:(CPTPlotSpace *)space changedXPlotRangeTo:(CPTPlotRange *)newRange;
+
 /// @}
 
 /// @name User Interaction

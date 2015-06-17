@@ -406,6 +406,10 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
             }
 
             xRange = [constrainedRange copy];
+            
+            if ( [theDelegate respondsToSelector:@selector(plotSpace:changedXPlotRangeTo:)] ) {
+                [theDelegate plotSpace:self changedXPlotRangeTo:constrainedRange];
+            }
 
             [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
                                                                 object:self

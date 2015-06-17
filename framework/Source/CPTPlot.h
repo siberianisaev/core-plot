@@ -314,6 +314,7 @@ typedef NS_ENUM (NSInteger, CPTPlotCachePrecision) {
 -(void)setDataNeedsReloading;
 -(void)reloadData;
 -(void)reloadDataIfNeeded;
+-(void)clearCache;
 -(void)reloadDataInIndexRange:(NSRange)indexRange;
 -(void)insertDataAtIndex:(NSUInteger)idx numberOfRecords:(NSUInteger)numberOfRecords;
 -(void)deleteDataInIndexRange:(NSRange)indexRange;
