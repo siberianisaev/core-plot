@@ -1101,6 +1101,12 @@ NSString *const CPTBarPlotBindingBarLineStyles = @"barLineStyles"; ///< Bar line
     if ( path ) {
         CGContextSaveGState(context);
 
+        id<CPTBarPlotDelegate> delegate = self.delegate;
+        if ([delegate respondsToSelector:@selector(barPlot:barPrerenderIndex:inContext:)])
+        {
+            [delegate barPlot:self barPrerenderIndex:idx inContext:context];
+        }
+        
         CPTFill *theBarFill = [self barFillForIndex:idx];
         if ( [theBarFill isKindOfClass:[CPTFill class]] ) {
             CGContextBeginPath(context);

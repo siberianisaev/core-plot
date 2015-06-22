@@ -177,6 +177,8 @@ typedef NS_ENUM (NSInteger, CPTBarPlotField) {
  **/
 -(void)barPlot:(CPTBarPlot *)plot barTouchUpAtRecordIndex:(NSUInteger)idx withEvent:(CPTNativeEvent *)event;
 
+
+-(void)barPlot:(CPTBarPlot *)plot barPrerenderIndex:(NSUInteger)idx inContext:(CGContextRef)context;
 /// @}
 
 @end

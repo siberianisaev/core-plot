@@ -597,8 +597,9 @@
                     // Fill band
                     CGRect fillRect = CPTRectMake( MIN(startViewPoint.x, endViewPoint.x),
                                                    MIN(startViewPoint.y, endViewPoint.y),
-                                                   ABS(endViewPoint.x - startViewPoint.x),
+                                                  ABS(endViewPoint.x - startViewPoint.x),
                                                    ABS(endViewPoint.y - startViewPoint.y) );
+
                     [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }

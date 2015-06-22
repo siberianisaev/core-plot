@@ -550,7 +550,7 @@ NSString *const CPTPlotBindingDataLabels = @"dataLabels"; ///< Plot data labels.
 {
     [self.cachedData removeAllObjects];
     self.cachedDataCount = 0;
-
+    
     [self reloadDataInIndexRange:NSMakeRange(0, self.numberOfRecords)];
 }
 
