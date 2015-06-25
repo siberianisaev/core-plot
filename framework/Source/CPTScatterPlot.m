@@ -562,6 +562,12 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             const double x = xBytes[i];
             const double y = yBytes[i];
+            
+            if (x == 0 && y == 0)
+            {
+                drawPointFlags[i] = NO;
+            }
+            
             if ( !drawPointFlags[i] || isnan(x) || isnan(y) ) {
                 viewPoints[i] = CPTPointMake(NAN, NAN);
             }
@@ -724,7 +730,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
     if ( self.hidden ) {
         return;
     }
-
+    
     CPTMutableNumericData *xValueData = [self cachedNumbersForField:CPTScatterPlotFieldX];
     CPTMutableNumericData *yValueData = [self cachedNumbersForField:CPTScatterPlotFieldY];
 
@@ -1674,7 +1680,7 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         BOOL *drawPointFlags = malloc( dataCount * sizeof(BOOL) );
 
         CPTXYPlotSpace *thePlotSpace = (CPTXYPlotSpace *)self.plotSpace;
-        [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:NO numberOfPoints:dataCount];
+        [self calculatePointsToDraw:drawPointFlags forPlotSpace:thePlotSpace includeVisiblePointsOnly:YES/*NO*/ numberOfPoints:dataCount];
         [self calculateViewPoints:viewPoints withDrawPointFlags:drawPointFlags numberOfPoints:dataCount];
         NSInteger firstDrawnPointIndex = [self extremeDrawnPointIndexForFlags:drawPointFlags numberOfPoints:dataCount extremeNumIsLowerBound:YES];
 
