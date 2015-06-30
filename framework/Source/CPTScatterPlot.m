@@ -590,6 +590,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         dispatch_apply(dataCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t i) {
             const NSDecimal x = xBytes[i];
             const NSDecimal y = yBytes[i];
+            const NSDecimal zero = [[NSDecimalNumber zero] decimalValue];
+            
+            if (NSDecimalCompare(&x, &zero) == 0 && NSDecimalCompare(&y, &zero) == 0)
+            {
+                drawPointFlags[i] = NO;
+            }
+            
             if ( !drawPointFlags[i] || NSDecimalIsNotANumber(&x) || NSDecimalIsNotANumber(&y) ) {
                 viewPoints[i] = CPTPointMake(NAN, NAN);
             }
