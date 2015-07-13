@@ -12,7 +12,7 @@
 
 -(CPTTheme *)currentTheme;
 
-@property (nonatomic, readwrite, weak) UIPopoverController *themePopoverController;
+@property (nonatomic, readwrite) UIPopoverController *themePopoverController;
 
 -(void)setupView;
 -(void)themeChanged:(NSNotification *)notification;
@@ -47,7 +47,7 @@
     [self setupView];
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if ( (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) ) {
         [self setupView];
@@ -128,33 +128,6 @@
     NSDictionary *themeInfo = notification.userInfo;
 
     [self themeSelectedWithName:themeInfo[PlotGalleryThemeNameKey]];
-}
-
-#pragma mark -
-#pragma mark Segues
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ( [segue.identifier isEqualToString:@"selectTheme"] ) {
-        self.themePopoverController = segue.destinationViewController;
-    }
-}
-
--(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ( [identifier isEqualToString:@"selectTheme"] ) {
-        UIPopoverController *controller = self.themePopoverController;
-
-        if ( controller ) {
-            [controller dismissPopoverAnimated:YES];
-            return NO;
-        }
-        else {
-            return YES;
-        }
-    }
-
-    return YES;
 }
 
 @end
