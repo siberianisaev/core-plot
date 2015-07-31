@@ -671,6 +671,21 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
  **/
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint
 {
+    return [self indexOfVisiblePointClosestToPlotAreaPoint:viewPoint compareOnlyX:NO];
+}
+
+/** @brief Returns the index of the closest visible point to the point.x passed in.
+ *  @param viewPointX The reference point.x.
+ *  @return The index of the closest point, or @ref NSNotFound if there is no visible point.
+ *  @note point.y isn't important here.
+ **/
+-(NSUInteger)indexOfVisiblePointClosestToPlotAreaPointX:(CGFloat)viewPointX
+{
+    return [self indexOfVisiblePointClosestToPlotAreaPoint:CGPointMake(viewPointX, 0) compareOnlyX:YES];
+}
+
+-(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint compareOnlyX:(BOOL)compareOnlyX
+{
     NSUInteger dataCount = self.cachedDataCount;
     CGPoint *viewPoints  = calloc( dataCount, sizeof(CGPoint) );
     BOOL *drawPointFlags = calloc( dataCount, sizeof(BOOL) );
@@ -683,7 +698,13 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
         CGFloat minimumDistanceSquared = NAN;
         for ( NSUInteger i = (NSUInteger)result; i < dataCount; ++i ) {
             if ( drawPointFlags[i] ) {
-                CGFloat distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
+                CGFloat distanceSquared;
+                if (compareOnlyX) {
+                    CGFloat deltaX = (viewPoint.x - viewPoints[i].x);
+                    distanceSquared = deltaX * deltaX;
+                } else {
+                    distanceSquared = squareOfDistanceBetweenPoints(viewPoint, viewPoints[i]);
+                }
                 if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = (NSInteger)i;

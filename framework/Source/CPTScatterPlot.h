@@ -253,6 +253,7 @@ typedef NS_ENUM (NSInteger, CPTScatterPlotInterpolation) {
 /// @name Visible Points
 /// @{
 -(NSUInteger)indexOfVisiblePointClosestToPlotAreaPoint:(CGPoint)viewPoint;
+-(NSUInteger)indexOfVisiblePointClosestToPlotAreaPointX:(CGFloat)viewPointX;
 -(CGPoint)plotAreaPointOfVisiblePointAtIndex:(NSUInteger)idx;
 /// @}
 
